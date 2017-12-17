@@ -29,8 +29,8 @@ public class WeatherRetriever {
         JSONParser jsonParser = new JSONParser();
         try {
             JSONObject jsonWeather = (JSONObject) jsonParser.parse(page);
-            String description = get_description(jsonWeather);
-            Double tempInKelvin = get_Temperature(jsonWeather);
+            String description = getDescription(jsonWeather);
+            Double tempInKelvin = getTemperature(jsonWeather);
             System.out.println(String.format("Description: %s", description));
             System.out.println(String.format("Temperature in Kelvin: %s", tempInKelvin));
             System.out.println(String.format("Temperature in Celsius: %s", tempInKelvin - 273.15));
@@ -41,13 +41,13 @@ public class WeatherRetriever {
         return true;
     }
 
-    private static String get_description(JSONObject jsonWeather){
+    private static String getDescription(JSONObject jsonWeather){
         JSONArray weatherArray = (JSONArray) jsonWeather.get("weather");
         JSONObject dataAtZeroPos = (JSONObject) weatherArray.get(0);
         return (String) dataAtZeroPos.get("description");
     }
 
-    private static Double get_Temperature(JSONObject jsonWeather){
+    private static Double getTemperature(JSONObject jsonWeather){
         JSONObject mainPart = (JSONObject) jsonWeather.get("main");
         return (Double) mainPart.get("temp");
     }
